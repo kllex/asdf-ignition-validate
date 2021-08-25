@@ -37,12 +37,15 @@ list_all_versions() {
 }
 
 download_release() {
-  local version filename url
+  local version filename url arch cpu
   version="$1"
   filename="$2"
+  arch="$(get_arch)"
+  platform="$(get_platform)"
 
   # TODO: Adapt the release URL convention for <YOUR TOOL>
-  url="$GH_REPO/archive/v${version}.tar.gz"
+  ###url="$GH_REPO/archive/v${version}.tar.gz"
+  url="$GH_REPO/releases/download/v${version}/${TOOL_NAME}-${arch}-${platform}"
 
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -71,4 +74,20 @@ install_version() {
     rm -rf "$install_path"
     fail "An error ocurred while installing $TOOL_NAME $version."
   )
+}
+
+get_platform() {
+  uname | tr '[:upper:]' '[:lower:]'
+}
+
+get_arch() {
+  local machine_hardware_name
+  machine_hardware_name="$(uname -m)"
+
+  case "$machine_hardware_name" in
+    'powerpc64le' | 'ppc64le') local arch_type="ppc64le";;
+    *) local arch_type="$machine_hardware_name";;
+  esac
+
+  echo "$arch_type"
 }
