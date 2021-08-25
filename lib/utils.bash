@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for <YOUR TOOL>.
-GH_REPO="https://github.com/kllex/asdf-ignition-validate"
+GH_REPO="https://github.com/coreos/ignition"
 TOOL_NAME="ignition-validate"
 TOOL_TEST="ignition-validate"
 
