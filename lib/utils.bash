@@ -61,8 +61,8 @@ install_version() {
   fi
 
   (
-    mkdir -p "$install_path"
-    cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+    mkdir -p "$install_path/bin"
+    cp -v "$ASDF_DOWNLOAD_PATH"/* "$install_path/bin"
 
     # TODO: Assert <YOUR TOOL> executable exists.
     local tool_cmd
@@ -70,10 +70,10 @@ install_version() {
     test -x "$install_path/bin/$tool_cmd" || fail "Expected $install_path/bin/$tool_cmd to be executable."
 
     echo "$TOOL_NAME $version installation was successful!"
-  ) || (
-    rm -rf "$install_path"
-    fail "An error ocurred while installing $TOOL_NAME $version."
-  )
+  )# || (
+   # rm -rf "$install_path"
+   # fail "An error ocurred while installing $TOOL_NAME $version."
+  #)
 }
 
 get_platform() {
