@@ -37,7 +37,7 @@ list_all_versions() {
 }
 
 download_release() {
-  local version filename url arch cpu
+  local version filename url arch platform
   version="$1"
   filename="$2"
   arch="$(get_arch)"
